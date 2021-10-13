@@ -28,10 +28,27 @@ try {
 			e.printStackTrace();
 		}    
  ```
- 	同时在FileOperate类中实现writeoutput输出对应规模文件操作，文件命名"统计结果"+scale+".txt"  
+ 同时在FileOperate类中实现writeoutput输出对应规模文件操作，文件命名"统计结果"+scale+".txt"  
  * 然后在CutAndCount.java的CutAndCount类中通过Word(int scale)函数调用StringOperate.java和FileOperate.java ，按照输入的规模统计词和词频到HashMap，接着通过Map.Entry<String,Integer>生成对应格式字符串`entry.getKey() + "\t times: " + entry.getValue()+"\n"`
  * 最后在TongJi.java编写主函数，获取用户输入的规模，是单字词，双字词和三字词。调用CutAndCount的Word函数生成对应统计结果文件夹。
   
+## 第二部分 宋词自动生成
+语料库：ci.txt 对应实验二代码 
+* 首先编写FileOperate.java在实现文件读取readInput函数，读取实验一已经处理好的单字词，双字词和三字词词频统计。代码与实验一相同，但在实验一基础上改进更加便捷，实验二LineSolution声明为**interface接口**，这样与实验一相比，之后调用readInput函数只需要在调用地方重写solveLine即可，同时这样HashMap也好存储词和词频。
+* 然后编写CreateSongCi类实现宋词自动生成。每个词牌有对应的格式，比如 醉花阴词牌词格式
+```
+露芽/初破/云腴细。玉纤/纤/亲试。香雪/透/金瓶，无限/仙风，月下/人微醉。
+相如/消渴/无佳思。了知/君/此意。不信/老/卢郎，花底/春寒，赢得/空无睡。
+上半与下半各五句，断句格式一样，223。212。212，22，23。
+```
+* 
+	* 因此我们要生成单字词，双字词和三字词对应的	HashMap 。创建creatNumWord函数实现，在该函数调用FileOperate.readInput重写接口LineSolution中的方法处理文件每一行。
+	* 获得HashMap之后还需要随机获取此词表中的高频词，用creatFrequencyPlace函数输入词的规模，获得随机生成高频词。
+	* 然后编写对应词牌的词结构。本人只编写的醉花阴, 江城子 和酒泉子三个词牌
+	* 最后编写creatCi(String cipai)函数，使用以上函数返回生成的String类型宋词。<br>
+* 最后通过GUI函数实现图形化界面，使用java.awt类实现界面。
+
   在学习完自然语言处理后进行的课程设计，分为四个部分，实现宋词自动生成系统和中文分词系统。在完成过程中遇到许多困难，感谢学姐的帮助https://zhuanlan.zhihu.com/p/31641900 学姐github https://github.com/CeliaChien/song-poem
+
 
 
