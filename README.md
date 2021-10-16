@@ -72,15 +72,24 @@ try {
 语料库 词性标注%40人民日报199801.txt 对应实验三代码  
 功能：1. 分析统计txt文件统计1元模型和2元模型，输出单词和词频文件，双词和词频文件。
 2.用户根据输入中文，能够快速载入文件，并检索判断是单词还是双词。
-* 词性标注%40人民日报199801.txt中例如```[香港/ns  特别/a  行政区/n]ns  同胞/n  、/w  澳门/ns  和/c  台湾/ns  同胞/n  、/w  海外/s```是由中文/英文字母组成，因此创建ChineseAndEnglish函数使用regex.Matcher和regex.Pattern实现isChinese和isEnglish两个布尔函数功能判断是中文还是英文。
-* 
+* 词性标注%40人民日报199801.txt中例如```[香港/ns  特别/a  行政区/n]ns  同胞/n  、/w  澳门/ns  和/c  台湾/ns  同胞/n  、/w  海外/s```是由中文/英文字母组成，因此创建ChineseAndEnglish类使用regex.Matcher和regex.Pattern实现isChinese和isEnglish两个布尔函数功能判断是中文还是英文。同时像[香港/ns  特别/a  行政区/n]ns是由[ ]内的元素组成的，处理时把[ ]替换成/,这样有新的词性nns 。
+* 首先老样子建立文件读取、输出类FileOperate。其中词性标注%40人民日报199801.txt文本格式为UTF-8，使用InputStreamReader和FileOutputStream读取和创建，创建的文本命名格式为scale+"-gram分词统计.txt"和scale+"-gram分词词性统计.txt"。
+* 接着创建TongJi类统计词性标注%40人民日报199801.txt中的单字词和双字词，与实验二相同使用LineSolution接口，统计时通过ChineseAndEnglish类判断中英文，再通过FileOperate输出统计结果文本文件。
+* 之后在创建Judge类实现判断是单词还是双词。通过读取统计后的scale+"-gram分词统计.txt"，创建对应的HashMap，再判断输入字符串是否在哈希表中，从而实现单字词和双字词判断。
+* 最后通过GUI类实现图形化界面设计。
+## 第四部分 中文词法分析系统
+语料库 词性标注%40人民日报199801.txt 对应实验四代码  
+功能：根据构建的单词词典和双词词典，用前向最长匹配和后向最长匹配算法实现对用户输入句子进行划分。
+* 首先建立文件读取FileOperate类，使用InputStreamReader用UTF-8格式读取输入的路径地址文件，使用接口LineSolution方法solveLine进行行处理。
+* 然后创建Judge类判断是否是1-gram分词统计.txt里面的词。使用FileOperate.readInput函数时重写接口LineSolution的方法solveLine进行行处理。
+* 之后创建Algorithm类通过调用Judge类方法实现FMM和BMM算法。
+* 最后通过GUI类实现图形化界面设计。
+## 第五部分 总结
+&nbsp;&nbsp;&nbsp;&nbsp;通过本次课程设计，让我更加掌握文件的输入和输出，使用接口对文件进行更加便捷的行处理，对哈希表的使用，regex类Pattern和Matcher方法的使用，理解并实现FMM和BMM算法，使用awt类进行GUI设计等等。本次课程设计还有很多不足比如没有实现隐马尔科夫模型分词方法等等，往后会再接再厉。  
 
+<br>
 
-
-
-
-
-  在学习完自然语言处理后进行的课程设计，分为四个部分，实现宋词自动生成系统和中文分词系统。在完成过程中遇到许多困难，感谢学姐的帮助https://zhuanlan.zhihu.com/p/31641900 学姐github https://github.com/CeliaChien/song-poem
+  本次自然语言处理后课程设计，分为四个部分实现宋词自动生成系统和中文分词系统。在完成过程中遇到许多困难，其中感谢学姐的帮助 https://zhuanlan.zhihu.com/p/31641900 学姐github https://github.com/CeliaChien/song-poem
 
 
 
